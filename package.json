@@ -1,0 +1,21 @@
+{
+  "name": "node-study",
+  "version": "1.0.0",
+  "description": "Node JS Study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "nodejs"
+  ],
+  "author": "Dmitry Utev <utevdmitry@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
+}
