@@ -16,6 +16,15 @@ module to work with paths
 fs
 ```
 module to work with file system
-to init project
+
+```
+os
+```
+module to work with operation system
+
+```
+events
+```
+module to work with events
 Best wishes,
 Dmitry Utev.
