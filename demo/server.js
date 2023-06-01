@@ -5,33 +5,57 @@ const path = require('path')
 //create server
 const server = http.createServer((req, res) => {
     
-    let fName = "" //init url
-
-    switch (req.url) { 
-        case "/contact":        //if url equals contact
-            fName = "contact.html"
-            break
-        default:
-            fName = "index.html" //default is index.html
+    //method to show default page
+    const getDefaultPage = function() {
+        fs.readFile(path.join(__dirname, "../public", "index.html"), (err, defaultContent) => {
+            if (err) {
+                getErrPage()
+            } else {
+                res.writeHead(200, {
+                    "Content-Type": "text/html"
+                })
+                res.end(defaultContent)
+            } 
+        })
     }
     
     //method to show 404 page
     const getErrPage = function() {
-        fs.readFile(path.join(__dirname, "../public", "error.html"), (err, data) => {
-            if (err) { //if error
-                res.writeHead(500); //set error-code to 500
-                res.end("Error"); //print error
-            }
-        })
+            fs.readFile(path.join(__dirname, "../public", "error.html"), (err, data) => {
+                if (err) { //if error
+                    res.writeHead(500); //set error-code to 500
+                    res.end("Error"); //print error
+                }
+            })
+        }
+
+    let filePath = path.join(__dirname, "../public", req.url === "/" ? "index.html" : req.url);
+    let contentType = "text/html";
+    const ext = path.extname(filePath);
+    if (!ext) {
+        filePath += ".html"
     }
 
+    switch (ext) {
+        case ".css":
+            contentType = "text/css"
+            break
+        case ".js":
+            contentType = "text/javascript"
+            break
+        default:
+            contentType = "text/html"  
+    }
+
+
+
     //server logic
-    fs.readFile(path.join(__dirname, "../public", fName), (err, content) => {
+    fs.readFile(filePath, (err, content) => {
         if (err) { //if error
-            getErrPage();   //show 404 page
+            getDefaultPage();   //show default page
         } else {
             res.writeHead(200, { // set status to 200
-                "Content-Type": "text/html" //set content-type to html
+                "Content-Type": contentType //set content-type to html
             })
             res.end(content)
         }
