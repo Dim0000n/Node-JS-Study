@@ -6,7 +6,7 @@
 // console.log(__dirname) //system variable
 // console.log(__filename)
 
-const server = require('./demo/server.js')
+const server = require('./demo/server.js') //import server
 
 server.listen(3000, () => {
         console.log('Server has been started...')
